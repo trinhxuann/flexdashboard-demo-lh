@@ -1,0 +1,76 @@
+---
+title: "Penguins - Basic Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(palmerpenguins)
+library(ggplot2)
+library(dplyr)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Penguin Scatterplot
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_point(aes(color = species)) +
+    scale_color_manual(values = c(
+        "Adelie" = "coral",
+        "Chinstrap" = "cyan4",
+        "Gentoo" = "gray30"
+    )) +
+    labs(
+        title = NULL,
+        x = "Flipper Length (mm)",
+        y = "Body Mass (g)",
+        color = "Species"
+    ) +
+    theme_minimal()
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Bill Depth Distribution of Chinstrap
+
+```{r}
+penguins %>%
+    filter(species == "Chinstrap") %>%
+    ggplot(aes(x = bill_depth_mm)) +
+    geom_histogram(fill = "cyan4") +
+    labs(title = NULL,
+         x = "Bill Depth (mm)",
+         y = NULL) +
+    theme_minimal()
+```
+
+### Penguin Species on Biscoe
+
+```{r}
+# subsetted penguins data frame
+biscoe_sp <- penguins %>% 
+    filter(island == "Biscoe") %>% 
+    group_by(species) %>% 
+    summarize(count = n())
+    
+# bar plot 
+ggplot(data = biscoe_sp, aes(x = species, y = count)) +
+    geom_col(aes(fill = species)) +
+    scale_fill_manual(values = c(
+        "Adelie" = "coral",
+        "Gentoo" = "gray30"
+    )) +
+    labs(title = NULL,
+         x = NULL,
+         y = "Number of species",
+         fill = "Species") +
+    theme_minimal() 
+```
+
+

@@ -1,0 +1,123 @@
+---
+title: "Penguins - Interactive Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(palmerpenguins)
+library(ggplot2)
+library(dplyr)
+library(leaflet)
+```
+
+Tab One
+=====================================
+
+<!--When we use the orientation "rows" we specify each row using "Row" 
+    and we can change the size of the row using {data-height=xxx}-->
+
+Row {data-height=600}
+-----------------------------------------------------------------------
+
+### Penguin Scatterplot
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_point(aes(color = species)) +
+    scale_color_manual(values = c(
+        "Adelie" = "coral",
+        "Chinstrap" = "cyan4",
+        "Gentoo" = "gray30"
+    )) +
+    labs(
+        title = NULL,
+        x = "Flipper Length (mm)",
+        y = "Body Mass (g)",
+        color = "Species"
+    ) +
+    theme_minimal()
+```
+
+Row {data-height=400}
+-----------------------------------------------------------------------
+
+### Bill Depth Distribution of Chinstrap
+
+```{r}
+penguins %>%
+    filter(species == "Chinstrap") %>%
+    ggplot(aes(x = bill_depth_mm)) +
+    geom_histogram(fill = "cyan4") +
+    labs(title = NULL,
+         x = "Bill Depth (mm)",
+         y = NULL) +
+    theme_minimal()
+```
+
+### Penguin Species on Biscoe
+
+```{r}
+# subsetted penguins data frame
+biscoe_sp <- penguins %>% 
+    filter(island == "Biscoe") %>% 
+    group_by(species) %>% 
+    summarize(count = n())
+    
+# bar plot 
+ggplot(data = biscoe_sp, aes(x = species, y = count)) +
+    geom_col(aes(fill = species)) +
+    scale_fill_manual(values = c(
+        "Adelie" = "coral",
+        "Gentoo" = "gray30"
+    )) +
+    labs(title = NULL,
+         x = NULL,
+         y = "Number of species",
+         fill = "Species") +
+    theme_minimal() 
+```
+
+Tab Two
+===
+
+<!--To create a new Tab or a new Row (or Column), you only need a minimum
+    of three `===` (equal signs) or `---` (dashes)-->
+    
+Row {data-height=50}
+---
+### Total penguins
+
+```{r}
+valueBox(nrow(penguins), color = "cornsilk")
+```
+
+### Penguin species
+
+```{r}
+valueBox(length(unique(penguins$species)), color = "lightcyan")
+```
+
+Row 
+---
+
+### About Palmer Station {data-width=150}
+
+<!--To change the size of an individual component within a row (or column)
+    use either {data-width} or {data-height}-->
+
+[Palmer Station](https://pallter.marine.rutgers.edu/) is a site part of the Long-Term Ecological Research (LTER) Network. It is one of the three United States research stations located in Antarctica. 
+
+It is also where the data from the [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/) R package was collected. The penguin data was collected and made available by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php).
+
+### Map
+
+```{r}
+leaflet() %>%
+    addProviderTiles(providers$OpenStreetMap) %>% 
+    addMarkers(lng = -64.05384063012775,
+               lat = -64.77413239299318,
+               popup = "Palmer Station")
+```
+
