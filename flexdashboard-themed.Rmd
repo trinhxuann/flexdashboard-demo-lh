@@ -12,10 +12,12 @@ output:
         google: JetBrains Mono
     orientation: columns
     vertical_layout: fill
+runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
+bslib::bs_themer()
 # Install thematic and un-comment for themed static plots (i.e., ggplot2)
 # thematic::thematic_rmd()
 ```
