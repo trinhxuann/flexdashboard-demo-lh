@@ -21,9 +21,9 @@ Column {data-width=650}
 ```{r}
 ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_point(aes(color = species)) +
     scale_color_manual(values = c(
-        "Adelie" = "coral",
-        "Chinstrap" = "cyan4",
-        "Gentoo" = "gray30"
+        "Adelie" = "purple2",
+        "Chinstrap" = "orange",
+        "Gentoo" = "cyan4"
     )) +
     labs(
         title = NULL,
@@ -43,14 +43,14 @@ Column {data-width=350}
 penguins %>%
     filter(species == "Chinstrap") %>%
     ggplot(aes(x = bill_depth_mm)) +
-    geom_histogram(fill = "cyan4") +
+    geom_histogram(fill = "orange") +
     labs(title = NULL,
          x = "Bill Depth (mm)",
          y = NULL) +
     theme_minimal()
 ```
 
-### Penguin Species on Biscoe
+### Penguin Species on Biscoe Island
 
 ```{r}
 # subsetted penguins data frame
@@ -63,8 +63,8 @@ biscoe_sp <- penguins %>%
 ggplot(data = biscoe_sp, aes(x = species, y = count)) +
     geom_col(aes(fill = species)) +
     scale_fill_manual(values = c(
-        "Adelie" = "coral",
-        "Gentoo" = "gray30"
+        "Adelie" = "purple2",
+        "Gentoo" = "cyan4"
     )) +
     labs(title = NULL,
          x = NULL,
