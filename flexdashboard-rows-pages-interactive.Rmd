@@ -11,30 +11,26 @@ library(palmerpenguins)
 library(ggplot2)
 library(dplyr)
 library(leaflet)
+library(plotly) # interactive plots
 ```
 
 # Page One
 
 <!--When we use the orientation "rows" we specify each row using "Row" 
     and we can change the size of the row using {data-height=xxx}-->
-    
-# Apple {data-navmenu="Page One"}
 
 Row {data-height=600}
 -----------------------------------------------------------------------
 
 ### Penguin Scatterplot
 
-Hello testing test
-
-> how is this text different
-
 ```{r}
-ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_point(aes(color = species)) +
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+    geom_point(aes(color = species)) +
     scale_color_manual(values = c(
-        "Adelie" = "coral",
-        "Chinstrap" = "cyan4",
-        "Gentoo" = "gray30"
+        "Adelie" = "purple2",
+        "Chinstrap" = "orange",
+        "Gentoo" = "cyan4"
     )) +
     labs(
         title = NULL,
@@ -45,7 +41,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_poin
     theme_minimal()
 ```
 
-Row {data-height=400 .tabset}
+Row
 -----------------------------------------------------------------------
 
 ### Bill Depth Distribution of Chinstrap
@@ -54,7 +50,7 @@ Row {data-height=400 .tabset}
 penguins %>%
     filter(species == "Chinstrap") %>%
     ggplot(aes(x = bill_depth_mm)) +
-    geom_histogram(fill = "cyan4") +
+    geom_histogram(fill = "orange") +
     labs(title = NULL,
          x = "Bill Depth (mm)",
          y = NULL) +
@@ -74,8 +70,8 @@ biscoe_sp <- penguins %>%
 ggplot(data = biscoe_sp, aes(x = species, y = count)) +
     geom_col(aes(fill = species)) +
     scale_fill_manual(values = c(
-        "Adelie" = "coral",
-        "Gentoo" = "gray30"
+        "Adelie" = "purple2",
+        "Gentoo" = "cyan4"
     )) +
     labs(title = NULL,
          x = NULL,
