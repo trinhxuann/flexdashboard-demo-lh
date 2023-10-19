@@ -13,16 +13,21 @@ library(dplyr)
 library(leaflet)
 ```
 
-Tab One
-=====================================
+# Page One
 
 <!--When we use the orientation "rows" we specify each row using "Row" 
     and we can change the size of the row using {data-height=xxx}-->
+    
+# Apple {data-navmenu="Page One"}
 
 Row {data-height=600}
 -----------------------------------------------------------------------
 
 ### Penguin Scatterplot
+
+Hello testing test
+
+> how is this text different
 
 ```{r}
 ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_point(aes(color = species)) +
@@ -40,7 +45,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_poin
     theme_minimal()
 ```
 
-Row {data-height=400}
+Row {data-height=400 .tabset}
 -----------------------------------------------------------------------
 
 ### Bill Depth Distribution of Chinstrap
@@ -79,10 +84,9 @@ ggplot(data = biscoe_sp, aes(x = species, y = count)) +
     theme_minimal() 
 ```
 
-Tab Two
-===
+# Page Two
 
-<!--To create a new Tab or a new Row (or Column), you only need a minimum
+<!--To create a new Page or a new Row (or Column), you only need a minimum
     of three `===` (equal signs) or `---` (dashes)-->
     
 Row {data-height=50}
@@ -120,4 +124,9 @@ leaflet() %>%
                lat = -64.77413239299318,
                popup = "Palmer Station")
 ```
+
+
+
+
+
 
