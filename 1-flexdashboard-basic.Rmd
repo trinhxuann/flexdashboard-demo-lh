@@ -56,7 +56,7 @@ penguin_df %>%
     theme_minimal()
 ```
 
-### Penguin Species on Biscoe Island {data-height=850}
+### Penguin Species on Biscoe Island
 
 ```{r}
 # subsetted penguins data frame
