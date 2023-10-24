@@ -13,13 +13,19 @@ library(ggplot2)
 library(dplyr)
 ```
 
+```{r}
+# save data to object
+penguin_df <- palmerpenguins::penguins
+```
+
+
 Column {data-width=650}
 -----------------------------------------------------------------------
 
 ### Penguin Scatterplot
 
 ```{r}
-ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_point(aes(color = species)) +
+ggplot(data = penguin_df, aes(x = flipper_length_mm, y = body_mass_g)) + geom_point(aes(color = species)) +
     scale_color_manual(values = c(
         "Adelie" = "purple2",
         "Chinstrap" = "orange",
@@ -40,7 +46,7 @@ Column {data-width=350}
 ### Bill Depth Distribution of Chinstrap
 
 ```{r}
-penguins %>%
+penguin_df %>%
     filter(species == "Chinstrap") %>%
     ggplot(aes(x = bill_depth_mm)) +
     geom_histogram(fill = "orange") +
@@ -50,11 +56,11 @@ penguins %>%
     theme_minimal()
 ```
 
-### Penguin Species on Biscoe Island
+### Penguin Species on Biscoe Island {data-height=850}
 
 ```{r}
 # subsetted penguins data frame
-biscoe_sp <- penguins %>% 
+biscoe_sp <- penguin_df %>% 
     filter(island == "Biscoe") %>% 
     group_by(species) %>% 
     summarize(count = n())

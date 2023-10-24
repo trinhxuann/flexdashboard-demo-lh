@@ -4,7 +4,6 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
-runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
@@ -14,23 +13,18 @@ library(ggplot2)
 library(dplyr)
 ```
 
-Column {.sidebar}
----
 
-### Sidebar
+<!--
+Steps for adding reactivity to flexdashboard:
 
-Here we are adding reactivity to our flexdashboard.
-
-```{r}
-shiny::selectInput(inputId = "pp_species",
-                   label = "Select a penguin species:",
-                   choices = c("Adelie", 
-                               "Chinstrap",
-                               "Gentoo"),
-                   selected = "Adelie")
-```
-
-
+1. add runtime: shiny to YAML
+    a. Note how the Knit button changes to Run document after you Save
+2. add a sidebar to dashboard for shiny inputs
+3. add shiny input(s)
+4. wrap the plot you want to add reactivity to within a render function. 
+    a. Don't forget to use ({ }) for multiple lines
+5. adjust the data within the plot code with the correct input ID
+-->
 
 Column {data-width=650}
 -----------------------------------------------------------------------
@@ -38,28 +32,21 @@ Column {data-width=650}
 ### Penguin Scatterplot
 
 ```{r}
-
-shiny::renderPlot({
-    
-
-    ggplot(data = penguins %>% filter(species %in% input$pp_species), 
-           aes(x = flipper_length_mm, y = body_mass_g)) +
-        geom_point(aes(color = species),
-                   size = 4) +
-        scale_color_manual(values = c(
-            "Adelie" = "purple2",
-            "Chinstrap" = "orange",
-            "Gentoo" = "cyan4"
-        )) +
-        labs(
-            title = NULL,
-            x = "Flipper Length (mm)",
-            y = "Body Mass (g)",
-            color = "Species"
-        ) +
-        theme_minimal()
-    
-})
+ggplot(data = penguins,
+       aes(x = flipper_length_mm, y = body_mass_g)) +
+    geom_point(aes(color = species)) +
+    scale_color_manual(values = c(
+        "Adelie" = "purple2",
+        "Chinstrap" = "orange",
+        "Gentoo" = "cyan4"
+    )) +
+    labs(
+        title = NULL,
+        x = "Flipper Length (mm)",
+        y = "Body Mass (g)",
+        color = "Species"
+    ) +
+    theme_minimal()
 ```
 
 Column {data-width=350}

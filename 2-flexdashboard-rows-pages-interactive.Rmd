@@ -10,17 +10,18 @@ library(flexdashboard)
 library(palmerpenguins)
 library(ggplot2)
 library(dplyr)
-library(leaflet)
+library(leaflet) # interactive maps
 library(plotly) # interactive plots
 ```
 
-# Page One
+Page One
+=======================================================================
 
-<!--When we use the orientation "rows" we specify each row using "Row" 
-    and we can change the size of the row using {data-height=xxx}-->
-
-Row {data-height=600}
+Row 1 {data-height=600}
 -----------------------------------------------------------------------
+
+<!--When we use the orientation "rows" we specify each row using "Row".
+    To adjust the size of the row use the attribute {data-height=xxx}-->
 
 ### Penguin Scatterplot
 
@@ -41,10 +42,10 @@ ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
     theme_minimal()
 ```
 
-Row
+Row 2
 -----------------------------------------------------------------------
 
-### Bill Depth Distribution of Chinstrap
+### Bill Depth Distribution of Chinstrap 
 
 ```{r}
 penguins %>%
@@ -80,24 +81,32 @@ ggplot(data = biscoe_sp, aes(x = species, y = count)) +
     theme_minimal() 
 ```
 
-# Page Two
+Page Two
+===
 
 <!--To create a new Page or a new Row (or Column), you only need a minimum
-    of three `===` (equal signs) or `---` (dashes)-->
+    of three `===` (equal signs) or `---` (dashes). OR you can use a level-one     header (new Page) `#` or level-two header (new Row or Column) `##` 
+    from Markdown syntax -->
     
 Row {data-height=50}
 ---
+
 ### Total penguins
 
 ```{r}
-valueBox(nrow(penguins), color = "cornsilk")
+valueBox(nrow(penguins), 
+         color = "cornsilk")
 ```
 
 ### Penguin species
 
 ```{r}
-valueBox(length(unique(penguins$species)), color = "lightcyan")
+valueBox(length(unique(penguins$species)), 
+         color = "lightcyan")
 ```
+
+<!-- fa = Font Awesome. You can explore free and paid font awesome icons at
+    https://fontawesome.com/ -->
 
 Row 
 ---
@@ -120,6 +129,28 @@ leaflet() %>%
                lat = -64.77413239299318,
                popup = "Palmer Station")
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
