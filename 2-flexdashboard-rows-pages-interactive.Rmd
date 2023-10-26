@@ -26,7 +26,7 @@ Row 1 {data-height=600}
 ### Penguin Scatterplot
 
 ```{r}
-ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+p <- ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
     geom_point(aes(color = species)) +
     scale_color_manual(values = c(
         "Adelie" = "purple2",
@@ -40,6 +40,8 @@ ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
         color = "Species"
     ) +
     theme_minimal()
+
+plotly::ggplotly(p)
 ```
 
 Row 2
